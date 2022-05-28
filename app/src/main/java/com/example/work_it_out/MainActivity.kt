@@ -4,18 +4,30 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.FrameLayout
 import android.widget.Toast
+import com.example.work_it_out.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+
+    private var binding: ActivityMainBinding? = null
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding  = ActivityMainBinding.inflate(layoutInflater)
 
-        val flStartButtom: FrameLayout = findViewById(R.id.flStart)
-        flStartButtom.setOnClickListener {
+        setContentView(binding?.root)
+
+        //val flStartButtom: FrameLayout = findViewById(R.id.flStart)
+        binding?.flStart?.setOnClickListener {
             Toast.makeText(
                 this@MainActivity,
                 "Here we start the main Exercises",
                 Toast.LENGTH_LONG).show()
         }
+    }
+
+    override fun onDestroy(){
+        super.onDestroy()
+        binding = null
     }
 }
