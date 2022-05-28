@@ -1,5 +1,6 @@
 package com.example.work_it_out
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.FrameLayout
@@ -19,10 +20,14 @@ class MainActivity : AppCompatActivity() {
 
         //val flStartButtom: FrameLayout = findViewById(R.id.flStart)
         binding?.flStart?.setOnClickListener {
-            Toast.makeText(
-                this@MainActivity,
-                "Here we start the main Exercises",
-                Toast.LENGTH_LONG).show()
+//            Toast.makeText(
+//                this@MainActivity,
+//                "Here we start the main Exercises",
+//                Toast.LENGTH_LONG).show()
+
+            val intent = Intent(this, ExerciseActivity::class.java)
+            startActivity(intent)
+
         }
     }
 
