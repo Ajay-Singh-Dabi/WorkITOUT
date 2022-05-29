@@ -3,6 +3,7 @@ package com.example.work_it_out
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.view.View
 import android.widget.Toast
 import com.example.work_it_out.databinding.ActivityExerciseBinding
 
@@ -12,6 +13,9 @@ class ExerciseActivity : AppCompatActivity() {
 
     private var restTimer: CountDownTimer? = null
     private var restProgress = 0
+
+    private var exerciseTimer: CountDownTimer? = null
+    private var exerciseProgress = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,8 +48,25 @@ class ExerciseActivity : AppCompatActivity() {
             }
 
             override fun onFinish() {
+                setupExerciseView()
+            }
+
+        }.start()
+    }
+
+    private fun setExerciseProgressBar(){
+        binding?.progressBarExercise?.progress = exerciseProgress
+
+        exerciseTimer = object: CountDownTimer(30000,1000){
+            override fun onTick(millisUntilFinished: Long) {
+                exerciseProgress++
+                binding?.progressBarExercise?.progress = 30-exerciseProgress
+                binding?.textViewTimerExercise?.text = (30-exerciseProgress).toString()
+            }
+
+            override fun onFinish() {
                 Toast.makeText(this@ExerciseActivity,
-                    "Now we will start the Exercise",
+                    "30 sec Over, let's go to rest View",
                     Toast.LENGTH_SHORT).show()
             }
 
@@ -61,12 +82,28 @@ class ExerciseActivity : AppCompatActivity() {
         setRestProgressBar()
     }
 
+    private fun setupExerciseView(){
+        binding?.flProgressBar?.visibility = View.INVISIBLE
+        binding?.textViewTitle?.text = "Exercise Name"
+        binding?.flExerciseView?.visibility = View.VISIBLE
+
+        if(exerciseTimer!= null){
+            exerciseTimer?.cancel()
+            exerciseProgress = 0
+        }
+        setExerciseProgressBar()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
 
         if(restTimer!=null){
             restTimer?.cancel()
             restProgress = 0
+        }
+        if(exerciseTimer!= null){
+            exerciseTimer?.cancel()
+            exerciseProgress = 0
         }
         binding = null
     }
