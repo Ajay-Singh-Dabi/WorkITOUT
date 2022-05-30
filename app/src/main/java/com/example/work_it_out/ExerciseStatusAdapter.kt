@@ -1,7 +1,9 @@
 package com.example.work_it_out
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.work_it_out.databinding.ItemExerciseStatusBinding
 
@@ -22,6 +24,25 @@ class ExerciseStatusAdapter(val items: ArrayList<ExerciseModel>)
         val model: ExerciseModel = items[position]
         holder.tvItem.text = model.getId().toString()
 
+        when{
+            model.getIsSelected() ->{
+                holder.tvItem.background =
+                    ContextCompat.getDrawable(holder.itemView.context,
+                    R.drawable.item_cirular_thin_color_accent_background)
+                holder.tvItem.setTextColor(Color.parseColor("#212121"))
+            }
+            model.getIsCompleted() ->{
+                holder.tvItem.background =
+                    ContextCompat.getDrawable(holder.itemView.context,
+                        R.drawable.item_circular_color_accent_background)
+                holder.tvItem.setTextColor(Color.parseColor("#212121"))
+            }else ->{
+            holder.tvItem.background =
+                ContextCompat.getDrawable(holder.itemView.context,
+                    R.drawable.item_cirular_gray_background)
+            holder.tvItem.setTextColor(Color.parseColor("#FFFFFF"))
+            }
+        }
     }
 
     override fun getItemCount(): Int {
