@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(binding?.root)
 
-        //val flStartButtom: FrameLayout = findViewById(R.id.flStart)
+        //val flStartButton: FrameLayout = findViewById(R.id.flStart)
         binding?.flStart?.setOnClickListener {
 //            Toast.makeText(
 //                this@MainActivity,
