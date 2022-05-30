@@ -1,5 +1,6 @@
 package com.example.work_it_out
 
+import android.app.Dialog
 import android.content.Intent
 import android.media.MediaPlayer
 import android.net.Uri
@@ -12,6 +13,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.work_it_out.databinding.ActivityExerciseBinding
+import com.example.work_it_out.databinding.CustomDialogBackConfirmationBinding
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -52,7 +54,7 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         tts = TextToSpeech(this,this)
 
         binding?.toolBarExercise?.setNavigationOnClickListener {
-            onBackPressed()
+            customDialogForBackButton()
             setupRestView()
         }
 
@@ -115,6 +117,26 @@ class ExerciseActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             }
 
         }.start()
+    }
+
+    private fun customDialogForBackButton(){
+        val customDialog = Dialog(this)
+        val dialogBinding  = CustomDialogBackConfirmationBinding.inflate(layoutInflater)
+        customDialog.setContentView(dialogBinding.root)
+        customDialog.setCanceledOnTouchOutside(false)
+        dialogBinding.btnYes.setOnClickListener {
+            this@ExerciseActivity.finish()
+            customDialog.dismiss()
+        }
+        dialogBinding.btnNo.setOnClickListener {
+            customDialog.dismiss()
+        }
+        customDialog.show()
+
+    }
+
+    override fun onBackPressed() {
+        customDialogForBackButton()
     }
 
     private fun setupRestView(){
