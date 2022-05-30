@@ -74,15 +74,25 @@ class ExerciseActivity : AppCompatActivity() {
             }
 
             override fun onFinish() {
-                Toast.makeText(this@ExerciseActivity,
-                    "30 sec Over, let's go to rest View",
-                    Toast.LENGTH_SHORT).show()
+                if(currentExercisePosition < exerciseList?.size!! - 1){
+                    setupRestView()
+                }else{
+                    Toast.makeText(this@ExerciseActivity,
+                        "Congrats Completed the 7 Min Workout",
+                        Toast.LENGTH_SHORT).show()
+                }
             }
 
         }.start()
     }
 
     private fun setupRestView(){
+        binding?.flRestView?.visibility = View.VISIBLE
+        binding?.textViewTitle?.visibility = View.VISIBLE
+        binding?.tvExerciseName?.visibility = View.INVISIBLE
+        binding?.flExerciseView?.visibility = View.INVISIBLE
+        binding?.tvImage?.visibility = View.INVISIBLE
+
         if(restTimer!=null){
             restTimer?.cancel()
             restProgress = 0
@@ -92,14 +102,19 @@ class ExerciseActivity : AppCompatActivity() {
     }
 
     private fun setupExerciseView(){
-        binding?.flProgressBar?.visibility = View.INVISIBLE
-        binding?.textViewTitle?.text = "Exercise Name"
+        binding?.flRestView?.visibility = View.INVISIBLE
+        binding?.textViewTitle?.visibility = View.INVISIBLE
+        binding?.tvExerciseName?.visibility = View.VISIBLE
         binding?.flExerciseView?.visibility = View.VISIBLE
+        binding?.tvImage?.visibility = View.VISIBLE
 
         if(exerciseTimer!= null){
             exerciseTimer?.cancel()
             exerciseProgress = 0
         }
+
+        binding?.tvImage?.setImageResource(exerciseList!![currentExercisePosition].getImage())
+        binding?.tvExerciseName?.text = exerciseList!![currentExercisePosition].getName()
         setExerciseProgressBar()
     }
 
