@@ -13,4 +13,5 @@
     <color name="colorAccent">#006400</color>
     <color name="light_grey_border">#C4C4C4</color>
     <color name="toolbar_color_control_normal">#000000</color>
+    <color name="colorLightGray">#EBEBEB</color>
 </resources>

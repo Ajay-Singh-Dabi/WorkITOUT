@@ -44,7 +44,7 @@ class FinishActivity : AppCompatActivity() {
         Log.e("Date: ",""+dateTime)
 
         //simple date format
-        val sdf = SimpleDateFormat("dd MM yyyy HH::mm::ss",Locale.getDefault())
+        val sdf = SimpleDateFormat("dd/MM/yyyy HH:mm:ss",Locale.getDefault())
         val date = sdf.format(dateTime)
         Log.e("Formatted Date","" +date)
 
